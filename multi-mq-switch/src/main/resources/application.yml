@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: multi-mq
+
+server:
+  servlet:
+    context-path: /multi-mq
+  port: 8088
+
+mq:
+  mqMap:
+    aaa:
+      host: xxxx
+      port: 5672
+      virtualHost: /test
+      username: aaa
+      password: aaa
+      queues:
+        -
+          name: aaa
+          durable: true
+      bindings:
+        -
+          destination: ${mq.mqMap.aaa.queues[0].name}
+          destinationType: QUEUE
+          exchange: lalala
+          routingKey: yayaya
+
+    bbb:
+      host: xxxx
+      port: 5672
+      virtualHost: /test
+      username: bbb
+      password: bbb
+      queues:
+          -
+            name: bbb
+            durable: true
+      bindings:
+          -
+            destination: ${mq.mqMap.bbb.queues[0].name}
+            destinationType: QUEUE
+            exchange: lalala
+            routingKey: yayaya
+  defaultMq: aaa
